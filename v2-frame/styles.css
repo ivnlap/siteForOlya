@@ -38,7 +38,7 @@
   /* width of the headline block; the doodles are hung off its two edges */
   --head-w:clamp(560px,58vw,840px);
   --doodle-w:clamp(72px,8vw,112px);
-  --doodle-gap:clamp(24px,3vw,48px);
+  --doodle-gap:clamp(40px,3.4vw,56px);  /* ДС §3.4: минимум 40px до текста */
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -272,7 +272,9 @@ a{color:inherit}
   position:relative;z-index:2;
   padding:0 var(--pad) clamp(12px,2vh,20px);
   text-align:center;
-  font-size:13px;line-height:1.4;color:var(--ink-300);
+  /* бриф просит --ink-300, но на кремовом это 2.6:1 — ниже порога §9.
+     Берём --ink-500 (5.67:1): так же тихо, но читается. */
+  font-size:13px;line-height:1.4;color:var(--ink-500);
 }
 .micro i{font-style:normal;padding:0 .2em}
 
@@ -327,7 +329,7 @@ a{color:inherit}
   .hero{padding-top:clamp(26px,4.6vh,40px)}
   .hero__col{max-width:none}
   .kicker{margin-bottom:14px}
-  .display{font-size:2.6rem;line-height:1.06}
+  .display{font-size:2.75rem;line-height:1.05}
   .lead{margin-top:18px;font-size:16px}
 
   /* one doodle only, parked in the empty top-right corner */

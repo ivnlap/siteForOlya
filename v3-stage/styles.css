@@ -246,7 +246,9 @@ a{color:inherit}
 .micro{
   position:relative;z-index:2;
   padding:clamp(8px,1.4vh,16px) var(--pad) clamp(12px,2vh,20px);
-  font-size:13px;line-height:1.4;color:var(--ink-300);
+  /* бриф просит --ink-300, но на кремовом это 2.6:1 — ниже порога §9.
+     Берём --ink-500 (5.67:1): так же тихо, но читается. */
+  font-size:13px;line-height:1.4;color:var(--ink-500);
 }
 .micro i{font-style:normal;padding:0 .2em}
 
@@ -330,6 +332,8 @@ a{color:inherit}
 /* phone: stage stays on top, the button pins itself to the bottom */
 @media (max-width:767px){
   :root{--frame-gap:0px;--card-w:86vw;--depth:-4}
+  /* маскот выходит за правый край — страница не должна от этого ездить вбок */
+  html,body{overflow-x:hidden}
   .page{
     border-radius:0;margin:0;
     height:auto;min-height:100vh;min-height:100dvh;
@@ -347,7 +351,7 @@ a{color:inherit}
   .hero__col{max-width:none}
   .kicker{margin-bottom:8px}
   .headline-row{display:block}
-  .display{font-size:2.05rem;line-height:1.08}
+  .display{font-size:2.75rem;line-height:1.05}
   .lead{margin-top:14px;font-size:16px;max-width:none}
   .facts{margin-top:14px;font-size:14px}
   .card__title{font-size:15px}
@@ -371,7 +375,7 @@ a{color:inherit}
      stopping above the heading — the seam is the reel's lower edge */
   .mascot{
     width:122px;
-    right:-4px;
+    right:0;
     bottom:auto;
     top:calc(86vw * .5625 - 76px);
     z-index:1;
