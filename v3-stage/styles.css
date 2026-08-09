@@ -300,6 +300,12 @@ a{color:inherit}
   .mascot{width:clamp(110px,15vw,150px)}
 }
 
+/* narrow but tall (iPad portrait and friends): grow the cards so the stage
+   fills its band instead of floating in it */
+@media (max-width:1279px) and (min-height:840px){
+  :root{--card-w:clamp(320px,64vw,580px)}
+}
+
 /* short desktop / phone landscape */
 @media (max-height:640px) and (min-width:768px){
   :root{--card-w:clamp(200px,24vw,300px);--depth:-6}

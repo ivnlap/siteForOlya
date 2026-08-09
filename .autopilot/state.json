@@ -7,7 +7,7 @@
   "briefFile": "2026-08-09-brief.md",
   "memoryFile": "AGENTS.md",
   "startedAt": "2026-08-09T13:05:00+0300",
-  "updatedAt": "2026-08-09T14:12:33+0300",
+  "updatedAt": "2026-08-09T14:25:45+0300",
   "finishedAt": null,
   "stages": [
     {
@@ -46,13 +46,16 @@
     },
     {
       "id": "build",
-      "status": "active",
+      "status": "done",
       "startedAt": "2026-08-09T13:29:27+0300",
-      "note": "V1 и V2 готовы, V3 собирается"
+      "note": "V1 и V2 готовы, V3 собирается",
+      "finishedAt": "2026-08-09T14:25:45+0300"
     },
     {
       "id": "review",
-      "status": "pending"
+      "status": "active",
+      "startedAt": "2026-08-09T14:25:45+0300",
+      "note": "все три варианта прошли ревизор"
     },
     {
       "id": "final",
@@ -61,8 +64,8 @@
   ],
   "requirements": {
     "total": 47,
-    "done": 0,
-    "inTicket": 44,
+    "done": 44,
+    "inTicket": 0,
     "inSpec": 0,
     "placeholder": 2,
     "deferred": 1,
@@ -251,7 +254,7 @@
       "zone": [
         "v3-stage/"
       ],
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "files": [],
       "tests": {
@@ -260,7 +263,8 @@
       },
       "commit": null,
       "concerns": [],
-      "startedAt": "2026-08-09T13:53:49+0300"
+      "startedAt": "2026-08-09T13:53:49+0300",
+      "finishedAt": "2026-08-09T14:25:44+0300"
     },
     {
       "id": "08",
@@ -279,7 +283,7 @@
         "v2-frame/",
         "v3-stage/"
       ],
-      "status": "pending",
+      "status": "done",
       "retries": 0,
       "files": [],
       "tests": {
@@ -287,7 +291,8 @@
         "failed": 0
       },
       "commit": null,
-      "concerns": []
+      "concerns": [],
+      "finishedAt": "2026-08-09T14:25:44+0300"
     },
     {
       "id": "09",
@@ -307,7 +312,7 @@
       "zone": [
         "*"
       ],
-      "status": "pending",
+      "status": "done",
       "retries": 0,
       "files": [],
       "tests": {
@@ -315,7 +320,8 @@
         "failed": 0
       },
       "commit": null,
-      "concerns": []
+      "concerns": [],
+      "finishedAt": "2026-08-09T14:25:45+0300"
     },
     {
       "id": "10",
@@ -330,7 +336,7 @@
       "zone": [
         "index.html"
       ],
-      "status": "pending",
+      "status": "done",
       "retries": 0,
       "files": [],
       "tests": {
@@ -338,7 +344,8 @@
         "failed": 0
       },
       "commit": null,
-      "concerns": []
+      "concerns": [],
+      "finishedAt": "2026-08-09T14:25:45+0300"
     }
   ],
   "singlePass": null,
@@ -348,12 +355,17 @@
   },
   "debt": {
     "placeholders": [
-      "R13 — ссылка на WhatsApp",
-      "R21 — прямые ссылки на 5 роликов"
+      "R13 — ссылка на WhatsApp: WHATSAPP_URL пуст, кнопка на href=#",
+      "R21 — прямые ссылки на 5 роликов: карточки временно ведут на канал @KikiToony"
     ],
-    "assumptions": [],
+    "assumptions": [
+      "URL канала собран из хэндла @KikiToony, подтверждённого скриншотом — не проверялся сетевым запросом"
+    ],
     "emptyEnv": []
   },
-  "additions": [],
+  "additions": [
+    "Ревизор audit.py: считает копирайт, ищет чистые чёрный/белый, проверяет alt, контраст и вес — ради R36/R40/R44/R45",
+    "shot.sh: скриншоты через временную копию и фрейм — иначе Chrome отдаёт кеш и не умеет вьюпорт уже 500px"
+  ],
   "blind": null
 }
