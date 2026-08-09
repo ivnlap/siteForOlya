@@ -1,5 +1,6 @@
 /* ==========================================================================
-   V1 «Reel» — one horizontal current.
+   V2 «Frame» — the centred classic. One axis, doodles in the margins,
+   the work spread underneath as a shallow arc.
    Tokens follow DESIGN-SYSTEM.md §2.1. No #FFF, no #000, anywhere.
    ========================================================================== */
 
@@ -28,8 +29,13 @@
   --dur-fast:160ms; --dur:320ms; --dur-slow:620ms;
 
   --pad:clamp(20px,4.4vw,64px);
-  --card-w:clamp(248px,30vw,440px);
+  --card-w:clamp(240px,27vw,400px);
   --frame-gap:12px;
+
+  /* width of the headline block; the doodles are hung off its two edges */
+  --head-w:clamp(560px,58vw,840px);
+  --doodle-w:clamp(72px,8vw,112px);
+  --doodle-gap:clamp(24px,3vw,48px);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -74,35 +80,46 @@ a{color:inherit}
 .page > *{min-width:0}
 @supports not (height:100dvh){ .page{height:calc(100vh - var(--frame-gap) * 2)} }
 
-/* ---- hero --------------------------------------------------------------- */
+/* ---- hero: one centred column ------------------------------------------- */
 .hero{
   position:relative;
+  z-index:1;                       /* below the strip — the mascot slips behind it */
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding:clamp(28px,4.6vh,56px) var(--pad) clamp(8px,1.6vh,20px);
+  align-items:center;
+  text-align:center;
+  padding:clamp(24px,4vh,52px) var(--pad) clamp(6px,1.4vh,16px);
   min-height:0;
 }
-.hero__col{max-width:min(92ch,1020px)}
+.hero__col{width:100%;max-width:1180px}
 
 .kicker{
   font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink-500);margin-bottom:18px;
 }
 
+.head{
+  position:relative;
+  width:min(100%,var(--head-w));
+  margin-inline:auto;
+}
+
 .display{
   font-family:var(--font-display);
   font-weight:600;
-  font-size:clamp(2.5rem,4.55vw,4.15rem);
+  font-size:clamp(2.4rem,4.6vw,4.1rem);
   line-height:1.04;
   letter-spacing:-.03em;
   color:var(--ink-900);
+  text-wrap:balance;
 }
 .display em{font-style:italic;color:var(--acc-coral)}
 
 .lead{
-  margin-top:22px;
-  max-width:53ch;
+  margin-top:24px;
+  max-width:560px;
+  margin-inline:auto;
   font-size:clamp(1rem,1.35vw,1.25rem);
   line-height:1.55;
   color:var(--ink-700);
@@ -110,8 +127,9 @@ a{color:inherit}
 
 /* ---- action: the page's only button ------------------------------------- */
 .action{
-  margin-top:clamp(26px,3.4vh,36px);
-  display:flex;align-items:center;gap:clamp(16px,2vw,34px);
+  margin-top:clamp(26px,3.6vh,40px);
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(14px,2vw,30px);
   flex-wrap:wrap;
 }
 .cta{
@@ -150,30 +168,50 @@ a{color:inherit}
 }
 
 .facts{
-  margin-top:clamp(22px,3vh,30px);
+  margin-top:clamp(20px,2.8vh,28px);
   font-size:15px;font-weight:500;line-height:1.45;
   color:var(--ink-500);
 }
 .facts i{font-style:normal;color:var(--ink-300);padding:0 .25em}
 
-/* ---- doodles ------------------------------------------------------------ */
+/* ---- doodles: hung off the two edges of the headline block --------------- */
 .doodle{
-  position:absolute;color:var(--ink-900);opacity:.85;pointer-events:none;
+  position:absolute;
+  width:var(--doodle-w);height:auto;
+  color:var(--ink-900);opacity:.85;pointer-events:none;
 }
-.doodle--curl{width:120px;height:96px;right:clamp(40px,7vw,120px);top:clamp(48px,9vh,110px)}
-.doodle--spark{width:44px;height:44px;right:clamp(150px,17vw,270px);top:clamp(150px,22vh,220px);opacity:.6}
+.doodle--spiral{
+  right:100%;margin-right:var(--doodle-gap);
+  top:50%;transform:translateY(-54%) rotate(-8deg);
+}
+.doodle--sparks{
+  left:100%;margin-left:var(--doodle-gap);
+  top:50%;transform:translateY(-50%) rotate(6deg);
+  opacity:.7;
+}
+
+/* ---- mascot: leans out from behind the strip ---------------------------- */
+.mascot{
+  position:absolute;
+  left:clamp(8px,3.4vw,68px);
+  bottom:calc(-1 * clamp(46px,7vh,86px));
+  width:clamp(112px,13vh,142px);
+  pointer-events:none;
+}
+.mascot img{width:100%;height:auto}
 
 /* ---- reel --------------------------------------------------------------- */
 .reel-wrap{
   position:relative;
-  margin-top:clamp(18px,2.8vh,32px);
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,var(--ink-900) 5%,var(--ink-900) 95%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,var(--ink-900) 5%,var(--ink-900) 95%,transparent 100%);
+  z-index:2;                       /* covers the mascot's lower half */
+  margin-top:clamp(14px,2.4vh,28px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,var(--ink-900) 6%,var(--ink-900) 94%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,var(--ink-900) 6%,var(--ink-900) 94%,transparent 100%);
 }
 .reel{
   display:flex;
   gap:clamp(14px,1.6vw,24px);
-  padding:26px var(--pad) 30px;
+  padding:24px var(--pad) 28px;
   overflow-x:auto;
   overflow-y:hidden;
   scroll-snap-type:x proximity;
@@ -210,11 +248,11 @@ a{color:inherit}
 .card__meta{
   position:absolute;left:0;right:0;bottom:0;z-index:1;
   display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-  padding:18px clamp(16px,1.6vw,22px);
+  padding:16px clamp(14px,1.5vw,20px);
   color:var(--cream-50);
 }
 .card__title{
-  font-family:var(--font-display);font-weight:600;font-size:clamp(15px,1.15vw,17px);
+  font-family:var(--font-display);font-weight:600;font-size:clamp(14px,1.1vw,16px);
   line-height:1.25;letter-spacing:-.01em;
 }
 .card__time{
@@ -225,43 +263,51 @@ a{color:inherit}
 
 /* ---- micro row ---------------------------------------------------------- */
 .micro{
-  padding:0 var(--pad) clamp(14px,2.2vh,22px);
-  /* бриф просит --ink-300, но на кремовом это 2.6:1 — ниже порога §9.
-     Берём --ink-500 (5.67:1): так же тихо, но читается. */
-  font-size:13px;line-height:1.4;color:var(--ink-500);
+  position:relative;z-index:2;
+  padding:0 var(--pad) clamp(12px,2vh,20px);
+  text-align:center;
+  font-size:13px;line-height:1.4;color:var(--ink-300);
 }
-.micro i{font-style:normal;color:var(--ink-300);padding:0 .2em}
+.micro i{font-style:normal;padding:0 .2em}
 
 /* ==========================================================================
    Responsive
    ========================================================================== */
 
-/* tablet */
+/* tablet: the right-hand doodle runs out of margin before the left one does */
+@media (max-width:900px){
+  .doodle--sparks{display:none}
+}
 @media (max-width:1279px){
-  .doodle--spark{display:none}
-  .display{font-size:clamp(2.25rem,5.4vw,3rem)}
+  .display{font-size:clamp(2.2rem,5.2vw,3rem)}
   .lead{font-size:17px}
 }
 
-/* short desktop / phone landscape */
+/* short desktop / phone landscape — everything compresses, CTA stays visible */
 @media (max-height:620px) and (min-width:768px){
-  /* Телефон в ландшафте: в 390px высоты один экран физически не помещается.
-     Вместо того чтобы обрезать герой, отпускаем страницу в скролл. */
-  .page{height:auto;min-height:calc(100dvh - var(--frame-gap) * 2);overflow:visible}
-  .hero{padding-top:clamp(20px,3vh,32px);justify-content:flex-start}
-  .display{font-size:clamp(2rem,3.6vw,2.75rem)}
-  .lead{margin-top:16px;font-size:16px}
-  .action{margin-top:20px}
-  .facts{margin-top:16px}
-  .reel-wrap{margin-top:16px}
-  .reel{padding-top:18px;padding-bottom:20px}
-  :root{--card-w:clamp(220px,22vw,300px)}
+  :root{--card-w:clamp(190px,19vw,260px)}
+  .hero{padding:clamp(12px,2.6vh,22px) var(--pad) 4px}
+  .kicker{font-size:12px;margin-bottom:8px}
+  .display{font-size:clamp(1.7rem,3.1vw,2.3rem);line-height:1.02}
+  .lead{margin-top:10px;font-size:15px;line-height:1.4;max-width:520px}
+  .action{margin-top:14px;gap:16px}
+  .cta{min-height:46px;padding:13px 26px;font-size:16px}
+  .hand__arrow{width:40px;height:26px}
+  .hand__text{font-size:21px}
+  .facts{margin-top:12px;font-size:13px}
+  .reel-wrap{margin-top:10px}
+  .reel{padding-top:12px;padding-bottom:14px}
+  .card__meta{padding:10px 12px}
+  .card__title{font-size:13px}
+  .card__time{font-size:12px}
+  .micro{padding-bottom:9px;font-size:11px}
   .doodle{display:none}
+  .mascot{display:none}
 }
 
 /* phone */
 @media (max-width:767px){
-  :root{--frame-gap:0px;--card-w:86vw}
+  :root{--frame-gap:0px;--card-w:86vw;--head-w:100%}
   .page{
     border-radius:0;margin:0;
     height:auto;min-height:100vh;min-height:100dvh;
@@ -272,13 +318,21 @@ a{color:inherit}
   }
   body{background:var(--cream-50)}
 
-  .hero{padding-top:clamp(28px,5vh,44px)}
+  .hero{padding-top:clamp(26px,4.6vh,40px)}
   .hero__col{max-width:none}
-  .display{font-size:2.75rem;line-height:1.05}
-  .lead{margin-top:20px;font-size:16px}
-  /* one doodle only, parked in the empty run to the right of the kicker */
-  .doodle--curl{width:62px;height:50px;right:14px;top:22px;bottom:auto;opacity:.7}
-  .doodle--spark{display:none}
+  .kicker{margin-bottom:14px}
+  .display{font-size:2.6rem;line-height:1.06}
+  .lead{margin-top:18px;font-size:16px}
+
+  /* one doodle only, parked in the empty top-right corner */
+  .doodle--spiral{display:none}
+  .doodle--sparks{
+    display:block;
+    left:auto;right:-6px;top:-48px;margin:0;
+    width:54px;transform:rotate(8deg);opacity:.6;
+  }
+
+  .mascot{display:none}
 
   /* the same single link, pinned — the inline slot keeps its space, nothing is duplicated */
   .action{
@@ -296,7 +350,7 @@ a{color:inherit}
   .hand__arrow{width:34px;height:22px;transform:scaleX(-1) rotate(96deg)}
   .hand__text{font-size:19px;transform:rotate(-3deg)}
 
-  .facts{margin-top:26px;font-size:14px}
+  .facts{margin-top:24px;font-size:14px}
   .reel-wrap{margin-top:22px}
   .reel{padding:20px 20px 24px;scroll-snap-type:x mandatory}
   .card__title{font-size:15px}
@@ -305,17 +359,22 @@ a{color:inherit}
 
 /* very small phones */
 @media (max-width:359px){
-  .display{font-size:2.25rem}
+  .display{font-size:2.15rem}
+  .doodle--sparks{display:none}
 }
 
 /* ---- motion ------------------------------------------------------------- */
 @media (prefers-reduced-motion:no-preference){
   .lift{opacity:0;transform:translateY(24px)}
   .is-ready .lift{opacity:1;transform:none;transition:opacity var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease);transition-delay:var(--d,0ms)}
+  /* doodles draw themselves in, 300ms after the headline */
+  .doodle path{stroke-dasharray:400;stroke-dashoffset:400}
+  .is-ready .doodle path{stroke-dashoffset:0;transition:stroke-dashoffset 700ms var(--ease) 300ms}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .lift{opacity:0}
   .is-ready .lift{opacity:1;transition:opacity 200ms linear;transition-delay:var(--d,0ms)}
   .reel__item{transform:none}
+  .doodle path{stroke-dasharray:none;stroke-dashoffset:0}
 }
