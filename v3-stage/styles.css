@@ -156,7 +156,7 @@ a{color:inherit}
   padding:clamp(6px,1.2vh,16px) var(--pad) clamp(4px,.8vh,12px);
 }
 /* the column stops well short of the right edge — that void is the mascot's */
-.hero__col{max-width:min(980px,72vw)}
+.hero__col{max-width:min(980px,70vw)}
 
 .kicker{
   font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
@@ -253,9 +253,9 @@ a{color:inherit}
 /* ---- mascot: leans in across the seam between stage and caption --------- */
 .mascot{
   position:absolute;
-  right:clamp(10px,2.4vw,34px);
-  bottom:clamp(24px,4.6vh,52px);
-  width:clamp(150px,18vw,260px);
+  right:-18px;
+  bottom:-12px;
+  width:clamp(150px,20vw,300px);
   z-index:1;
   pointer-events:none;
   display:block;
@@ -268,8 +268,8 @@ a{color:inherit}
 }
 .doodle--curl{
   width:clamp(64px,7vw,104px);height:auto;
-  right:clamp(190px,20vw,320px);
-  bottom:clamp(24px,5vh,60px);
+  right:clamp(230px,28vw,420px);
+  bottom:clamp(26px,5.2vh,62px);
   transform:rotate(-14deg);
 }
 
@@ -279,13 +279,25 @@ a{color:inherit}
 
 /* tablet / narrow desktop */
 @media (max-width:1279px){
-  :root{--card-w:clamp(280px,42vw,440px)}
-  .hero__col{max-width:none}
-  .display{font-size:clamp(1.95rem,4vw,2.6rem)}
+  :root{--card-w:clamp(280px,50vw,560px)}
+  /* still stop short of the right edge: that column is the mascot's */
+  .hero__col{max-width:min(820px,68vw)}
+  .headline-row{gap:clamp(20px,2.6vw,40px)}
+  .display{font-size:clamp(1.7rem,3.1vw,2.4rem)}
   .lead{font-size:16px;max-width:46ch}
-  .cta{padding:16px 26px;font-size:16px}
+  .cta{padding:15px 22px;font-size:16px}
+  .mascot{width:clamp(150px,22vw,240px)}
+}
+
+/* below this the caption column needs the full width — no room for a doodle,
+   and the heading has to give way so it still holds two lines beside the button */
+@media (max-width:899px){
+  :root{--card-w:clamp(300px,58vw,470px)}
   .doodle--curl{display:none}
-  .mascot{width:clamp(130px,15vw,180px)}
+  .hero__col{max-width:min(820px,72vw)}
+  .display{font-size:clamp(1.5rem,2.9vw,2rem)}
+  .cta{padding:13px 18px;font-size:15px}
+  .mascot{width:clamp(110px,15vw,150px)}
 }
 
 /* short desktop / phone landscape */
@@ -302,7 +314,11 @@ a{color:inherit}
   .hand__arrow{width:26px;height:18px}
   .micro{padding-top:4px;padding-bottom:8px}
   .doodle{display:none}
-  .mascot{width:clamp(110px,12vw,150px)}
+  .hero__col{max-width:min(700px,70vw)}
+  .card__meta{padding:9px 12px;gap:8px}
+  .card__title{font-size:13px}
+  .card__time{font-size:12px}
+  .mascot{width:clamp(96px,11vw,132px);right:8px;bottom:-8px}
 }
 
 /* phone: stage stays on top, the button pins itself to the bottom */
@@ -345,11 +361,13 @@ a{color:inherit}
   .hand__arrow{width:30px;height:20px;transform:scaleX(-1) rotate(96deg)}
   .hand__text{font-size:19px;transform:rotate(-3deg)}
 
+  /* on the phone the mascot leans out of the bottom-right corner of the stage,
+     stopping above the heading — the seam is the reel's lower edge */
   .mascot{
-    width:118px;
-    right:6px;
+    width:122px;
+    right:-4px;
     bottom:auto;
-    top:calc(86vw * .5625 + 34px);
+    top:calc(86vw * .5625 - 76px);
     z-index:1;
   }
   .doodle--curl{display:none}

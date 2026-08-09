@@ -7,7 +7,7 @@
   "briefFile": "2026-08-09-brief.md",
   "memoryFile": "AGENTS.md",
   "startedAt": "2026-08-09T13:05:00+0300",
-  "updatedAt": "2026-08-09T13:59:56+0300",
+  "updatedAt": "2026-08-09T14:12:33+0300",
   "finishedAt": null,
   "stages": [
     {
@@ -48,7 +48,7 @@
       "id": "build",
       "status": "active",
       "startedAt": "2026-08-09T13:29:27+0300",
-      "note": "V1 готов и прошёл ревизию; V2 и V3 собираются"
+      "note": "V1 и V2 готовы, V3 собирается"
     },
     {
       "id": "review",
@@ -224,7 +224,7 @@
       "zone": [
         "v2-frame/"
       ],
-      "status": "in-progress",
+      "status": "done",
       "retries": 0,
       "files": [],
       "tests": {
@@ -233,7 +233,8 @@
       },
       "commit": null,
       "concerns": [],
-      "startedAt": "2026-08-09T13:53:49+0300"
+      "startedAt": "2026-08-09T13:53:49+0300",
+      "finishedAt": "2026-08-09T14:12:33+0300"
     },
     {
       "id": "07",
