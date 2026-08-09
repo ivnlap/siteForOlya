@@ -184,7 +184,7 @@
   /* ---- 3. entrance ------------------------------------------------------- */
   /* маскот идёт третьим: он появляется сразу за заголовком, а не в конце очереди —
      он часть первого впечатления, а не декор, который доезжает последним */
-  var order = ['.kicker', '.display', '.mascot', '.lead', '.action', '.facts', '.reel-wrap', '.micro'];
+  var order = ['.kicker', '.display', '.mascot', '.lead', '.action', '.reel-wrap', '.micro'];
   order.forEach(function (sel, i) {
     var el = document.querySelector(sel);
     if (!el) return;

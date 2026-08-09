@@ -21,9 +21,13 @@ btns = re.findall(r'<button', H)
 ck(len(ctas)==1 and not btns, 'одна кнопка на странице', f'кнопок: cta={len(ctas)}, button={len(btns)}')
 
 # --- 3. подпись у кнопки убрана ---------------------------------------------
-ck('usually reply' not in H and 'class="hand"' not in H and '.hand' not in Cx,
-   'подписи у кнопки нет ни в разметке, ни в стилях',
-   'остатки .hand / «usually reply» ещё в коде')
+# «текст под кнопкой» — это строка фактов: пользователь указал на неё кропом
+ck('class="facts"' not in H and '.facts' not in Cx and '18 films' not in H,
+   'строки фактов под кнопкой нет ни в разметке, ни в стилях',
+   'строка «18 films · …» ещё в коде')
+ck('class="hand"' in H and 'usually reply same day' in H,
+   'подпись «usually reply same day» рядом с кнопкой на месте',
+   'подпись у кнопки пропала — пользователь просил её вернуть')
 
 # --- 4. подвал ---------------------------------------------------------------
 micro = re.search(r'<p class="micro">(.*?)</p>', H, re.S)
@@ -102,7 +106,7 @@ used = set()
 for fam in set(faces):
     if fam.lower() in C.lower().split('@font-face')[-1] or f"'{fam}'" in C.split('}',1)[1]:
         used.add(fam)
-ck("font-family:'Caveat'" not in Cx, 'мёртвый @font-face Caveat снят', 'Caveat объявлен, но не используется', warn=True)
+ck("font-family:'Caveat'" in Cx and '--font-hand' in Cx, 'Caveat подключён — на нём подпись у кнопки', 'подпись у кнопки есть, а Caveat не подключён')
 
 # --- 15. контраст ------------------------------------------------------------
 def lum(hexs):

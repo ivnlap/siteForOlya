@@ -7,8 +7,7 @@
 @font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-600i.woff2') format('woff2');font-weight:600;font-style:italic;font-display:swap}
-/* Caveat отсутствует намеренно: он держал только подпись у кнопки, а её больше нет.
-   Файл лежит в assets/fonts/ — вернуть шрифт можно одной строкой. */
+@font-face{font-family:'Caveat';src:url('assets/fonts/Caveat-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
 
 :root{
   --cream-50:#FDFBF4; --cream-100:#F8F3E6; --cream-200:#EFE7D3; --cream-300:#E2D6BB;
@@ -18,6 +17,7 @@
 
   --font-display:'General Sans','Poppins',system-ui,sans-serif;
   --font-text:'General Sans',system-ui,sans-serif;
+  --font-hand:'Caveat','Gloria Hallelujah',cursive;
 
   --r-sm:14px; --r-md:22px; --r-lg:32px; --r-full:999px;
   --sh-2:0 8px 24px rgba(22,19,14,.07);
@@ -91,14 +91,13 @@ a{color:inherit}
   display:grid;
   grid-template-columns:minmax(0,1fr) var(--mascot-w);
   /* Пустые 1fr сверху и снизу центрируют текстовый блок, а маскот тянется через
-     все четыре ряда: только так его align-self:end — это низ ГЕРОЯ, а не низ
-     строки фактов, и он садится на ленту, а не висит над ней. */
-  grid-template-rows:1fr auto auto 1fr;
+     все три ряда: только так его align-self:end — это низ ГЕРОЯ, а не низ
+     текстовой колонки, и он садится на ленту, а не висит над ней. */
+  grid-template-rows:1fr auto 1fr;
   grid-template-areas:
-    ".     mascot"
-    "text  mascot"
-    "facts mascot"
-    ".     mascot";
+    ".    mascot"
+    "text mascot"
+    ".    mascot";
   column-gap:clamp(20px,3.2vw,64px);
   align-items:start;
   padding:clamp(28px,4.6vh,56px) var(--pad) clamp(8px,1.6vh,20px);
@@ -136,7 +135,7 @@ a{color:inherit}
 /* ---- action: the page's only button ------------------------------------- */
 .action{
   margin-top:clamp(24px,3.2vh,34px);
-  display:flex;align-items:center;
+  display:flex;align-items:center;gap:clamp(16px,2vw,34px);
   flex-wrap:wrap;
 }
 .cta{
@@ -168,13 +167,15 @@ a{color:inherit}
 .cta:active{transform:translateY(0) scale(.98)}
 .cta__icon{width:22px;height:22px;flex:none}
 
-.facts{
-  grid-area:facts;
-  margin-top:clamp(22px,3vh,30px);
-  font-size:15px;font-weight:500;line-height:1.45;
-  color:var(--ink-500);
+.hand{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--ink-900);
 }
-.facts i{font-style:normal;color:var(--ink-300);padding:0 .25em}
+.hand__arrow{width:52px;height:34px;flex:none;transform:scaleX(-1) rotate(-6deg);opacity:.85}
+.hand__text{
+  font-family:var(--font-hand);font-weight:500;font-size:26px;line-height:1;
+  transform:rotate(-5deg);white-space:nowrap;
+}
 
 /* ---- mascot ------------------------------------------------------------- */
 .mascot{
@@ -294,6 +295,8 @@ a{color:inherit}
   :root{--mascot-w:clamp(196px,min(26vw,34vh),300px)}
   .display{font-size:clamp(2.2rem,4.4vw,2.95rem)}
   .lead{font-size:17px;max-width:44ch}
+  .hand__text{font-size:23px}
+  .hand__arrow{width:44px;height:29px}
 }
 
 /* ---- невысокий десктоп и ноутбук: 1366×768, 1440×700, 1280×720 ------------
@@ -307,7 +310,8 @@ a{color:inherit}
   .lead{margin-top:14px;font-size:clamp(.98rem,1.9vh,1.12rem)}
   .action{margin-top:clamp(18px,2.6vh,30px)}
   .cta{padding:15px 30px;min-height:50px}
-  .facts{margin-top:clamp(14px,2.2vh,26px);font-size:14px}
+  .hand__text{font-size:21px}
+  .hand__arrow{width:40px;height:26px}
   .kicker{margin-bottom:12px}
   .reel{padding-top:20px;padding-bottom:18px}
   .reel-wrap{margin-top:clamp(12px,2vh,26px)}
@@ -326,14 +330,17 @@ a{color:inherit}
   .action{
     position:fixed;left:0;right:0;bottom:0;z-index:20;
     margin:0;
-    display:flex;justify-content:center;
-    padding:10px 20px calc(14px + env(safe-area-inset-bottom,0px));
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    padding:8px 20px calc(14px + env(safe-area-inset-bottom,0px));
     background:var(--cream-50);
     border-top:1px solid var(--cream-200);
     box-shadow:0 -10px 28px rgba(22,19,14,.10);
   }
   .cta{width:100%;max-width:420px;justify-content:center;padding:15px 24px;min-height:48px}
   .cta::after{inset:-6px}
+  .hand{order:-1;gap:6px;margin-bottom:2px}
+  .hand__arrow{width:34px;height:22px;transform:scaleX(-1) rotate(96deg)}
+  .hand__text{font-size:19px;transform:rotate(-3deg)}
 }
 
 /* phone */
@@ -341,7 +348,7 @@ a{color:inherit}
   :root{
     --frame-gap:0px;
     --card-w:86vw;
-    --mascot-w:min(52vw,215px);
+    --mascot-w:min(58vw,236px);
     --mascot-dip:clamp(44px,7vh,66px);
   }
   .page{
@@ -350,41 +357,28 @@ a{color:inherit}
     overflow:visible;
     grid-template-rows:auto auto auto;
     align-content:start;
-    padding-bottom:calc(114px + env(safe-area-inset-bottom,0px));
+    padding-bottom:calc(126px + env(safe-area-inset-bottom,0px));
   }
   body{background:var(--cream-50)}
 
-  /* Полноширинной правой колонки на телефоне нет: заголовок, подзаголовок и
-     кнопка идут во всю ширину, а маскот и строка фактов делят следующий ряд.
-     Так место слева от персонажа занято содержанием, а не пустым холстом. */
+  /* Правой колонки на телефоне нет: текст идёт во всю ширину, маскот встаёт
+     следующим рядом и прижимается к правому краю, продолжая сидеть на ленте. */
   .hero{
-    grid-template-columns:minmax(0,1fr) var(--mascot-w);
+    grid-template-columns:minmax(0,1fr);
     grid-template-rows:auto auto;
     grid-template-areas:
-      "text  text"
-      "facts mascot";
-    column-gap:14px;
+      "text"
+      "mascot";
     padding-top:clamp(24px,4.4vh,40px);
-    align-items:end;
   }
   .hero__col{max-width:none}
   .display{font-size:clamp(2.05rem,8.4vw,2.6rem)}
   .lead{margin-top:16px;font-size:16px;max-width:none}
 
-  /* в узкой колонке точки-разделители не работают: <i> становится блоком —
-     нулевой высоты, но переносящим строку, и факты читаются столбиком */
-  .facts{
-    align-self:center;
-    margin-top:0;
-    padding-bottom:clamp(8px,2vh,20px);
-    font-size:14px;line-height:1.6;
-  }
-  .facts i{display:block;font-size:0;line-height:0;padding:0}
-
   .mascot{
     width:var(--mascot-w);
     justify-self:end;
-    margin-top:clamp(-24px,-2vh,-8px);
+    margin-top:clamp(-32px,-2.8vh,-10px);
     margin-right:calc(var(--pad) * -0.35);
   }
   .mascot .doodle--spark{width:24px;height:24px;left:-9%;top:9%}
@@ -405,17 +399,16 @@ a{color:inherit}
      обрезать герой, отпускаем страницу в скролл. */
   .page{height:auto;min-height:calc(100dvh - var(--frame-gap) * 2);overflow:visible;
          grid-template-rows:auto auto auto;align-content:start;
-         padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+         padding-bottom:calc(118px + env(safe-area-inset-bottom,0px))}
   /* сброс портретной раскладки: ниже 768px телефонная ветка уже разложила герой
-     в одну колонку и разложила факты столбиком — боком нужна обычная, широкая */
+     в одну колонку — боком нужна обычная, широкая, с маскотом справа */
   .hero{
     grid-template-columns:minmax(0,1fr) var(--mascot-w);
-    grid-template-rows:1fr auto auto 1fr;
+    grid-template-rows:1fr auto 1fr;
     grid-template-areas:
-      ".     mascot"
-      "text  mascot"
-      "facts mascot"
-      ".     mascot";
+      ".    mascot"
+      "text mascot"
+      ".    mascot";
     column-gap:clamp(16px,2.6vw,44px);
     padding-top:clamp(18px,3vh,32px);
     align-items:start;
@@ -423,8 +416,6 @@ a{color:inherit}
   .hero__col{max-width:none}
   .display{font-size:clamp(1.6rem,3.2vw,2.5rem)}
   .lead{margin-top:12px;font-size:15px;max-width:52ch}
-  .facts{align-self:start;margin-top:12px;padding-bottom:0;font-size:13px;line-height:1.45}
-  .facts i{display:inline;font-size:inherit;line-height:inherit;padding:0 .25em}
   .kicker{margin-bottom:10px}
   .reel-wrap{margin-top:14px}
   .reel{padding-top:18px;padding-bottom:18px}
@@ -443,7 +434,7 @@ a{color:inherit}
 
 /* very small phones */
 @media (max-width:359px){
-  :root{--mascot-w:min(50vw,170px)}
+  :root{--mascot-w:min(56vw,190px)}
   .display{font-size:1.95rem}
 }
 
