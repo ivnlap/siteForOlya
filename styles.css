@@ -406,16 +406,25 @@ a{color:inherit}
   .page{height:auto;min-height:calc(100dvh - var(--frame-gap) * 2);overflow:visible;
          grid-template-rows:auto auto auto;align-content:start;
          padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+  /* сброс портретной раскладки: ниже 768px телефонная ветка уже разложила герой
+     в одну колонку и разложила факты столбиком — боком нужна обычная, широкая */
   .hero{
     grid-template-columns:minmax(0,1fr) var(--mascot-w);
+    grid-template-rows:1fr auto auto 1fr;
+    grid-template-areas:
+      ".     mascot"
+      "text  mascot"
+      "facts mascot"
+      ".     mascot";
     column-gap:clamp(16px,2.6vw,44px);
     padding-top:clamp(18px,3vh,32px);
-    align-items:end;
+    align-items:start;
   }
-  .hero__col{align-self:center;max-width:none}
+  .hero__col{max-width:none}
   .display{font-size:clamp(1.6rem,3.2vw,2.5rem)}
   .lead{margin-top:12px;font-size:15px;max-width:52ch}
-  .facts{margin-top:12px;font-size:13px}
+  .facts{align-self:start;margin-top:12px;padding-bottom:0;font-size:13px;line-height:1.45}
+  .facts i{display:inline;font-size:inherit;line-height:inherit;padding:0 .25em}
   .kicker{margin-bottom:10px}
   .reel-wrap{margin-top:14px}
   .reel{padding-top:18px;padding-bottom:18px}
