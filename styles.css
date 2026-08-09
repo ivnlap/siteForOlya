@@ -1,0 +1,449 @@
+/* ==========================================================================
+   V1 «Reel» — one horizontal current, with the series' character sitting on it.
+   Tokens follow DESIGN-SYSTEM.md §2.1. No #FFF, no #000, anywhere.
+   ========================================================================== */
+
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-600i.woff2') format('woff2');font-weight:600;font-style:italic;font-display:swap}
+/* Caveat отсутствует намеренно: он держал только подпись у кнопки, а её больше нет.
+   Файл лежит в assets/fonts/ — вернуть шрифт можно одной строкой. */
+
+:root{
+  --cream-50:#FDFBF4; --cream-100:#F8F3E6; --cream-200:#EFE7D3; --cream-300:#E2D6BB;
+  --ink-900:#16130E;  --ink-700:#3B342B;   --ink-500:#6E6355;   --ink-300:#A99C89;
+  --acc-coral:#F0655A; --acc-sun:#F5B93E;
+  --frame:var(--acc-sun);
+
+  --font-display:'General Sans','Poppins',system-ui,sans-serif;
+  --font-text:'General Sans',system-ui,sans-serif;
+
+  --r-sm:14px; --r-md:22px; --r-lg:32px; --r-full:999px;
+  --sh-2:0 8px 24px rgba(22,19,14,.07);
+  --sh-3:0 18px 48px rgba(22,19,14,.10);
+  --sh-card:0 14px 36px rgba(22,19,14,.12);
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --dur-fast:160ms; --dur:320ms; --dur-slow:620ms;
+
+  --pad:clamp(20px,4.4vw,64px);
+  --card-w:clamp(248px,30vw,440px);
+  --frame-gap:12px;
+
+  /* Герой: ширина правой колонки и глубина, на которую маскот заходит в зазор
+     между героем и лентой — так он оказывается сидящим на её верхней кромке.
+     В ширину зашита и высота (33vh): маскот вертикальный, и на невысоком экране
+     колонка, посчитанная только от vw, вырастает выше строки героя и наезжает
+     на обложки вместо того, чтобы сидеть на них. */
+  --mascot-w:clamp(210px,min(27vw,33vh),420px);
+  --mascot-dip:clamp(52px,7.6vh,88px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--frame);
+  color:var(--ink-700);
+  font:400 17px/1.6 var(--font-text);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,p,ul{margin:0;padding:0}
+ul{list-style:none}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+:where(a,[tabindex]):focus-visible{
+  outline:2.5px solid var(--ink-900);
+  outline-offset:4px;
+  border-radius:6px;
+}
+
+/* ---- page frame --------------------------------------------------------- */
+.page{
+  position:relative;
+  background:var(--cream-50);
+  border-radius:28px;
+  margin:var(--frame-gap);
+  height:100vh;
+  height:calc(100dvh - var(--frame-gap) * 2);
+  overflow:hidden;
+  display:grid;
+  /* minmax(0,1fr): without it the implicit column is sized to the reel's
+     max-content width (~4600px) and every absolutely-placed child lands
+     far off-screen. */
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:1fr auto auto;
+  isolation:isolate;
+}
+.page > *{min-width:0}
+@supports not (height:100dvh){ .page{height:calc(100vh - var(--frame-gap) * 2)} }
+
+/* ---- hero --------------------------------------------------------------- */
+.hero{
+  position:relative;
+  /* лента — следующий сосед в потоке и по умолчанию рисуется поверх; без этого
+     маскот оказался бы ЗА обложками вместо того, чтобы сидеть на них */
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) var(--mascot-w);
+  /* Пустые 1fr сверху и снизу центрируют текстовый блок, а маскот тянется через
+     все четыре ряда: только так его align-self:end — это низ ГЕРОЯ, а не низ
+     строки фактов, и он садится на ленту, а не висит над ней. */
+  grid-template-rows:1fr auto auto 1fr;
+  grid-template-areas:
+    ".     mascot"
+    "text  mascot"
+    "facts mascot"
+    ".     mascot";
+  column-gap:clamp(20px,3.2vw,64px);
+  align-items:start;
+  padding:clamp(28px,4.6vh,56px) var(--pad) clamp(8px,1.6vh,20px);
+  min-height:0;
+}
+.hero > *{min-width:0}
+.hero__col{grid-area:text;max-width:min(92ch,1020px)}
+
+.kicker{
+  font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-500);margin-bottom:18px;
+}
+
+.display{
+  font-family:var(--font-display);
+  font-weight:600;
+  /* потолок ниже 72px из ДС: правую треть первого экрана теперь занимает маскот,
+     и заголовок делит ширину с ним, а не идёт во весь экран */
+  font-size:clamp(2.35rem,3.9vw,4.1rem);
+  line-height:1.05;
+  letter-spacing:-.03em;
+  color:var(--ink-900);
+  text-wrap:balance;
+}
+.display em{font-style:italic;color:var(--acc-coral)}
+
+.lead{
+  margin-top:20px;
+  max-width:48ch;
+  font-size:clamp(1rem,1.3vw,1.19rem);
+  line-height:1.55;
+  color:var(--ink-700);
+}
+
+/* ---- action: the page's only button ------------------------------------- */
+.action{
+  margin-top:clamp(24px,3.2vh,34px);
+  display:flex;align-items:center;
+  flex-wrap:wrap;
+}
+.cta{
+  position:relative;
+  display:inline-flex;align-items:center;gap:12px;
+  padding:18px 34px;
+  min-height:56px;
+  background:var(--acc-coral);
+  /* Бриф просит на кнопке --cream-50, но кремовый на коралле даёт 3.02:1 —
+     тот же бриф требует ≥4.5:1 для текста, и две его строки здесь спорят.
+     Чернила на коралле дают 5.92:1 и сохраняют сам цвет нетронутым; менять
+     --acc-coral пришлось бы до кирпичного, а это уже другая страница. */
+  color:var(--ink-900);
+  font:600 17px/1 var(--font-text);
+  letter-spacing:-.005em;
+  text-decoration:none;
+  border-radius:var(--r-full);
+  transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease);
+}
+.cta::after{
+  content:"";position:absolute;inset:-8px;
+  border:2px dashed rgba(240,101,90,.45);
+  border-radius:var(--r-full);
+  pointer-events:none;
+  transition:inset var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.cta:hover{transform:translateY(-2px);box-shadow:var(--sh-2)}
+.cta:hover::after{inset:-11px;border-color:rgba(240,101,90,.65)}
+.cta:active{transform:translateY(0) scale(.98)}
+.cta__icon{width:22px;height:22px;flex:none}
+
+.facts{
+  grid-area:facts;
+  margin-top:clamp(22px,3vh,30px);
+  font-size:15px;font-weight:500;line-height:1.45;
+  color:var(--ink-500);
+}
+.facts i{font-style:normal;color:var(--ink-300);padding:0 .25em}
+
+/* ---- mascot ------------------------------------------------------------- */
+.mascot{
+  grid-area:mascot;
+  position:relative;
+  align-self:end;
+  justify-self:center;
+  width:100%;
+  /* уходит в зазор между героем и лентой: нижняя кромка встречает верхнюю кромку
+     обложек, и два блока перестают быть двумя полосами */
+  margin-bottom:calc(var(--mascot-dip) * -1);
+}
+.mascot__img{width:100%;height:auto}
+/* тень касания: со смещением и размытием, а не нулевое цветное гало */
+.mascot::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:14%;right:12%;bottom:-4px;
+  height:clamp(18px,2.4vh,30px);
+  border-radius:50%;
+  background:radial-gradient(50% 50% at 50% 52%,rgba(22,19,14,.22),rgba(22,19,14,0) 74%);
+}
+/* единственная оставшаяся закорючка — искра у самой ладони: она отмечает жест,
+   а не просто заполняет поле */
+.mascot .doodle--spark{
+  left:-2%;top:17%;
+  width:clamp(24px,2.2vw,34px);height:clamp(24px,2.2vw,34px);
+  opacity:.5;
+}
+
+/* ---- doodles ------------------------------------------------------------ */
+.doodle{
+  position:absolute;color:var(--ink-900);pointer-events:none;
+}
+
+/* ---- reel --------------------------------------------------------------- */
+.reel-wrap{
+  position:relative;
+  z-index:1;
+  margin-top:clamp(18px,2.8vh,32px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,var(--ink-900) 5%,var(--ink-900) 95%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,var(--ink-900) 5%,var(--ink-900) 95%,transparent 100%);
+}
+.reel{
+  display:flex;
+  gap:clamp(14px,1.6vw,24px);
+  padding:26px var(--pad) 30px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x proximity;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  overscroll-behavior-x:contain;
+  cursor:grab;
+}
+.reel::-webkit-scrollbar{display:none}
+.reel.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.reel:focus-visible{outline-offset:-4px}
+
+.reel__item{
+  flex:0 0 var(--card-w);
+  scroll-snap-align:center;
+  transform:translateY(var(--arc,0px));
+  will-change:transform;
+}
+.card{
+  position:relative;display:block;
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  background:var(--cream-100);
+  box-shadow:var(--sh-card);
+  text-decoration:none;
+  aspect-ratio:16/9;
+  transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+}
+.card img{width:100%;height:100%;object-fit:cover}
+.card::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:58%;
+  background:linear-gradient(to top,rgba(22,19,14,.62),rgba(22,19,14,0));
+}
+.card__meta{
+  position:absolute;left:0;right:0;bottom:0;z-index:1;
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:18px clamp(16px,1.6vw,22px);
+  color:var(--cream-50);
+}
+.card__title{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(15px,1.15vw,17px);
+  line-height:1.25;letter-spacing:-.01em;
+}
+.card__time{
+  font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;
+  color:var(--cream-200);flex:none;
+}
+.card:hover,.card:focus-visible{transform:scale(1.03);box-shadow:var(--sh-3)}
+
+/* ---- micro row ---------------------------------------------------------- */
+.micro{
+  padding:0 var(--pad) clamp(14px,2.2vh,22px);
+  /* бриф просит --ink-300, но на кремовом это 2.6:1 — ниже порога §9.
+     Берём --ink-500 (5.67:1): так же тихо, но читается. */
+  font-size:13px;line-height:1.4;color:var(--ink-500);
+}
+.micro i{font-style:normal;color:var(--ink-300);padding:0 .2em}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* tablet */
+@media (max-width:1279px){
+  :root{--mascot-w:clamp(196px,min(26vw,34vh),300px)}
+  .display{font-size:clamp(2.2rem,4.4vw,2.95rem)}
+  .lead{font-size:17px;max-width:44ch}
+}
+
+/* ---- невысокий десктоп и ноутбук: 1366×768, 1440×700, 1280×720 ------------
+   Строки страницы — 1fr auto auto при фиксированной высоте: если содержимое
+   героя выше своей доли, оно НЕ ужимается, а вылезает — лента наезжает на текст,
+   а микро-ряд уходит за нижний край. Заголовок в три строки эту границу
+   переходит. Поэтому здесь всё, что занимает высоту, считается ещё и от vh. */
+@media (min-width:768px) and (max-height:840px){
+  .hero{padding-top:clamp(20px,3.4vh,48px)}
+  .display{font-size:clamp(1.95rem,min(3.9vw,6.5vh),4.1rem)}
+  .lead{margin-top:14px;font-size:clamp(.98rem,1.9vh,1.12rem)}
+  .action{margin-top:clamp(18px,2.6vh,30px)}
+  .cta{padding:15px 30px;min-height:50px}
+  .facts{margin-top:clamp(14px,2.2vh,26px);font-size:14px}
+  .kicker{margin-bottom:12px}
+  .reel{padding-top:20px;padding-bottom:18px}
+  .reel-wrap{margin-top:clamp(12px,2vh,26px)}
+  .micro{padding-bottom:clamp(10px,1.6vh,20px)}
+  :root{
+    --card-w:clamp(228px,min(28vw,46vh),372px);
+    --mascot-w:clamp(200px,min(26vw,31vh),420px);
+    --mascot-dip:clamp(46px,7.2vh,84px);
+  }
+}
+
+/* ---- залипающая кнопка: узкий экран ИЛИ телефон боком --------------------
+   Ландшафт 844×390 попадает в короткую-высоту ветку, где страница уходит
+   в скролл: без этого запроса кнопка уезжает вверх и её не видно вообще. */
+@media (max-width:767px), (max-height:620px) and (max-width:1023px){
+  .action{
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    margin:0;
+    display:flex;justify-content:center;
+    padding:10px 20px calc(14px + env(safe-area-inset-bottom,0px));
+    background:var(--cream-50);
+    border-top:1px solid var(--cream-200);
+    box-shadow:0 -10px 28px rgba(22,19,14,.10);
+  }
+  .cta{width:100%;max-width:420px;justify-content:center;padding:15px 24px;min-height:48px}
+  .cta::after{inset:-6px}
+}
+
+/* phone */
+@media (max-width:767px){
+  :root{
+    --frame-gap:0px;
+    --card-w:86vw;
+    --mascot-w:min(52vw,215px);
+    --mascot-dip:clamp(44px,7vh,66px);
+  }
+  .page{
+    border-radius:0;margin:0;
+    height:auto;min-height:100vh;min-height:100dvh;
+    overflow:visible;
+    grid-template-rows:auto auto auto;
+    align-content:start;
+    padding-bottom:calc(114px + env(safe-area-inset-bottom,0px));
+  }
+  body{background:var(--cream-50)}
+
+  /* Полноширинной правой колонки на телефоне нет: заголовок, подзаголовок и
+     кнопка идут во всю ширину, а маскот и строка фактов делят следующий ряд.
+     Так место слева от персонажа занято содержанием, а не пустым холстом. */
+  .hero{
+    grid-template-columns:minmax(0,1fr) var(--mascot-w);
+    grid-template-rows:auto auto;
+    grid-template-areas:
+      "text  text"
+      "facts mascot";
+    column-gap:14px;
+    padding-top:clamp(24px,4.4vh,40px);
+    align-items:end;
+  }
+  .hero__col{max-width:none}
+  .display{font-size:clamp(2.05rem,8.4vw,2.6rem)}
+  .lead{margin-top:16px;font-size:16px;max-width:none}
+
+  /* в узкой колонке точки-разделители не работают: <i> становится блоком —
+     нулевой высоты, но переносящим строку, и факты читаются столбиком */
+  .facts{
+    align-self:center;
+    margin-top:0;
+    padding-bottom:clamp(8px,2vh,20px);
+    font-size:14px;line-height:1.6;
+  }
+  .facts i{display:block;font-size:0;line-height:0;padding:0}
+
+  .mascot{
+    width:var(--mascot-w);
+    justify-self:end;
+    margin-top:clamp(-24px,-2vh,-8px);
+    margin-right:calc(var(--pad) * -0.35);
+  }
+  .mascot .doodle--spark{width:24px;height:24px;left:-9%;top:9%}
+
+  .reel-wrap{margin-top:14px}
+  .reel{padding:20px 20px 24px;scroll-snap-type:x mandatory}
+  .card__title{font-size:15px}
+  .micro{padding-bottom:16px}
+}
+
+/* ---- телефон и планшет боком: низко, но широко ---------------------------
+   Стоит ПОСЛЕ телефонной ветки намеренно: 667×375 и 740×360 попадают в обе,
+   и выиграть должна эта. В портретной раскладке маскот занимает 52vw и уводит
+   ленту на второй экран — в 360px высоты это уже не «прокрутить», а «не найти».
+   Нижняя граница 560px: уже — это портрет, там правой колонки нет вовсе. */
+@media (max-height:620px) and (min-width:560px){
+  /* В 360–390px высоты один экран физически не помещается: вместо того чтобы
+     обрезать герой, отпускаем страницу в скролл. */
+  .page{height:auto;min-height:calc(100dvh - var(--frame-gap) * 2);overflow:visible;
+         grid-template-rows:auto auto auto;align-content:start;
+         padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+  .hero{
+    grid-template-columns:minmax(0,1fr) var(--mascot-w);
+    column-gap:clamp(16px,2.6vw,44px);
+    padding-top:clamp(18px,3vh,32px);
+    align-items:end;
+  }
+  .hero__col{align-self:center;max-width:none}
+  .display{font-size:clamp(1.6rem,3.2vw,2.5rem)}
+  .lead{margin-top:12px;font-size:15px;max-width:52ch}
+  .facts{margin-top:12px;font-size:13px}
+  .kicker{margin-bottom:10px}
+  .reel-wrap{margin-top:14px}
+  .reel{padding-top:18px;padding-bottom:18px}
+  .micro{padding-bottom:12px}
+  .mascot{
+    width:100%;justify-self:center;
+    margin-top:0;margin-right:0;
+  }
+  .mascot .doodle--spark{width:20px;height:20px;left:-4%;top:15%}
+  :root{
+    --card-w:clamp(200px,min(24vw,58vh),300px);
+    --mascot-w:clamp(112px,min(16vw,46vh),200px);
+    --mascot-dip:clamp(40px,9vh,58px);
+  }
+}
+
+/* very small phones */
+@media (max-width:359px){
+  :root{--mascot-w:min(50vw,170px)}
+  .display{font-size:1.95rem}
+}
+
+/* ---- motion ------------------------------------------------------------- */
+@media (prefers-reduced-motion:no-preference){
+  .lift{opacity:0;transform:translateY(24px)}
+  .is-ready .lift{opacity:1;transform:none;transition:opacity var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease);transition-delay:var(--d,0ms)}
+  /* маскот приходит тем же движением, только глубже — он «садится» на ленту */
+  .mascot.lift{transform:translateY(46px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .lift{opacity:0}
+  .is-ready .lift{opacity:1;transition:opacity 200ms linear;transition-delay:var(--d,0ms)}
+  .reel__item{transform:none}
+}

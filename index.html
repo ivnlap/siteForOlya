@@ -1,139 +1,133 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Три варианта сайта — выбрать один</title>
-<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Short cartoons about you and your kids — any theme, any style</title>
+<meta name="description" content="Short cartoons about you and your kids — any theme, any style. One character, one look, a whole series, built with AI.">
+<meta name="theme-color" content="#FDFBF4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Short cartoons about you and your kids — any theme, any style">
+<meta property="og:description" content="One character, one look, a whole series — and the subject can be yours.">
+<meta property="og:image" content="assets/img/og.jpg">
+<!-- TODO: перед выкладкой заменить og:image на абсолютный URL (https://домен/assets/img/og.jpg)
+     и раскомментировать og:url — WhatsApp, Telegram и Slack не разбирают относительные пути,
+     ссылка придёт без превью. -->
+<!-- <meta property="og:url" content="https://ДОМЕН/"> -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32">
-<style>
-@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-
-:root{
-  --cream-50:#FDFBF4; --cream-100:#F8F3E6; --cream-200:#EFE7D3; --cream-300:#E2D6BB;
-  --ink-900:#16130E; --ink-700:#3B342B; --ink-500:#6E6355;
-  --acc-coral:#F0655A; --acc-sun:#F5B93E;
-  --ease:cubic-bezier(.22,.61,.36,1);
-}
-*,*::before,*::after{box-sizing:border-box}
-body{
-  margin:0;padding:clamp(28px,5vw,72px) clamp(20px,5vw,64px) 64px;
-  background:var(--cream-50);color:var(--ink-700);
-  font:400 17px/1.6 'General Sans',system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
-h1{
-  margin:0 0 14px;font-weight:600;font-size:clamp(2rem,3.6vw,3rem);
-  line-height:1.06;letter-spacing:-.03em;color:var(--ink-900);
-}
-.sub{margin:0 0 8px;max-width:70ch;color:var(--ink-700)}
-.note{
-  margin:24px 0 44px;max-width:70ch;padding:18px 22px;
-  background:var(--cream-100);border:1px solid var(--cream-200);border-radius:18px;
-  font-size:15px;line-height:1.55;color:var(--ink-700);
-}
-.note b{color:var(--ink-900)}
-code{
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;
-  background:var(--cream-200);padding:1px 6px;border-radius:6px;
-}
-
-.grid{display:grid;gap:clamp(20px,2.4vw,32px);grid-template-columns:repeat(auto-fit,minmax(320px,1fr));max-width:1400px}
-
-.variant{
-  display:flex;flex-direction:column;
-  background:var(--cream-100);border:1px solid var(--cream-200);
-  border-radius:24px;overflow:hidden;
-  text-decoration:none;color:inherit;
-  transition:transform 320ms var(--ease),box-shadow 320ms var(--ease),border-color 320ms var(--ease);
-}
-.variant:hover,.variant:focus-visible{
-  transform:translateY(-4px);
-  box-shadow:0 18px 48px rgba(22,19,14,.12);
-  border-color:var(--cream-300);
-}
-.variant:focus-visible{outline:2.5px solid var(--ink-900);outline-offset:4px}
-.shot{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top center;background:var(--cream-200);border-bottom:1px solid var(--cream-200)}
-.body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
-.tag{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-500)}
-.name{font-weight:600;font-size:23px;line-height:1.2;letter-spacing:-.02em;color:var(--ink-900)}
-.desc{font-size:15px;line-height:1.55;color:var(--ink-700);margin:0}
-.open{
-  margin-top:auto;padding-top:14px;
-  font-weight:500;font-size:15px;color:var(--acc-coral);
-  display:inline-flex;align-items:center;gap:7px;
-}
-.open svg{width:15px;height:15px}
-
-footer{margin-top:56px;max-width:70ch;font-size:15px;line-height:1.6;color:var(--ink-500)}
-footer h2{font-size:17px;font-weight:600;color:var(--ink-900);margin:0 0 10px}
-footer ol{margin:0;padding-left:20px}
-footer li{margin-bottom:6px}
-
-@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
-</style>
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/GeneralSans-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/GeneralSans-600i.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<!--
+  THESIS: one uninterrupted horizontal current of finished work, with the series' own
+  character seated on its top edge; refuses the centred hero-over-card-grid landing.
+  OWN-WORLD: cream #FDFBF4 canvas inside a sun-yellow page frame, ink display type at
+  72px against 17px body with nothing between, coral reserved for the accent line and
+  the single action, one hand-drawn ink spark at the mascot's wave, colour otherwise
+  allowed only inside the artwork.
+  STORY: a buyer meets the character, sees five finished films, understands the formula
+  transfers to their own subject, and messages on WhatsApp.
+  FIRST VIEWPORT: text column flush left, mascot right and bottom-aligned so he sits on
+  the film strip, full-bleed reel of 16:9 covers bleeding both edges beneath them.
+-->
+<div class="page">
 
-<h1>Три варианта сайта</h1>
-<p class="sub">Один и тот же контент, одни и те же обложки, одна и та же кнопка. Отличается только композиция — то, в каком порядке человек встречает работу, заголовок и кнопку.</p>
+  <main class="hero">
+    <div class="hero__col">
+      <p class="kicker">what we do</p>
+      <h1 class="display">Short cartoons about you and your&nbsp;kids<br><em>any theme, any style</em></h1>
+      <p class="lead">Built with AI: one character, one look, a whole series — and the subject can be yours.</p>
 
-<div class="note">
-  <b>Две заглушки, которые надо заменить перед публикацией.</b> Обе — в самом верху <code>script.js</code> выбранного варианта:
-  <code>WHATSAPP_URL</code> (пока пусто, кнопка никуда не ведёт) и массив <code>VIDEOS</code>
-  (все пять карточек пока ведут на канал, а не на конкретные ролики).
+      <div class="action">
+        <!-- TODO: WhatsApp — подставить номер в WHATSAPP_URL в script.js -->
+        <a class="cta" id="cta" href="#" target="_blank" rel="noopener">
+          <svg class="cta__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.82c2.16 0 4.19.84 5.72 2.37a8.03 8.03 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09a8.2 8.2 0 0 1-4.13-1.13l-.3-.18-3.07.8.82-3-.19-.31a8.1 8.1 0 0 1-1.24-4.28c0-4.46 3.63-8.08 8.09-8.08Zm-3.2 4.06c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.69 2.6 4.1 3.63.57.25 1.02.4 1.37.5.58.19 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.93-1.19-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.53-1.3-.73-1.78-.19-.46-.39-.4-.53-.41h-.46Z"/></svg>
+          <span>Message us on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Facts sit outside the text column on purpose: on a phone they move into the
+         row beside the mascot and become a four-line spec list, which is what fills
+         the space next to him instead of empty canvas. -->
+    <p class="facts">18 films <i>·</i> 2:18–2:38 each <i>·</i> 4 themes <i>·</i> one weekly release</p>
+
+    <!-- The character sits on the top edge of the strip: hero and reel stop being two
+         stacked bands and become one scene. -->
+    <div class="mascot">
+      <svg class="doodle doodle--spark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M32 6v16M32 42v16M6 32h16M42 32h16M14 14l10 10M40 40l10 10M50 14 40 24M24 40 14 50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <picture>
+        <source type="image/webp" srcset="assets/img/mascot-wave-440.webp 440w, assets/img/mascot-wave-880.webp 880w" sizes="(max-width: 767px) 52vw, (max-width: 1279px) 26vw, 400px">
+        <img class="mascot__img" src="assets/img/mascot-wave-440.png" srcset="assets/img/mascot-wave-440.png 440w, assets/img/mascot-wave-880.png 880w" sizes="(max-width: 767px) 52vw, (max-width: 1279px) 26vw, 400px" width="440" height="666" alt="The series mascot — a smiling toddler in denim dungarees, waving hello" fetchpriority="high" decoding="async">
+      </picture>
+    </div>
+  </main>
+
+  <section class="reel-wrap" aria-labelledby="reel-label">
+    <h2 id="reel-label" class="sr-only">Selected films</h2>
+    <ul class="reel" id="reel" tabindex="0" role="list">
+
+      <li class="reel__item">
+        <a class="card" href="#" target="_blank" rel="noopener">
+          <picture>
+            <source type="image/webp" srcset="assets/img/garden-680.webp 680w, assets/img/garden-960.webp 960w" sizes="(max-width: 767px) 86vw, 32vw">
+            <img src="assets/img/garden-960.jpg" srcset="assets/img/garden-680.jpg 680w, assets/img/garden-960.jpg 960w" sizes="(max-width: 767px) 86vw, 32vw" width="960" height="540" alt="Who&rsquo;s in the Garden? — cover" fetchpriority="high" decoding="async">
+          </picture>
+          <span class="card__meta"><span class="card__title">Who&rsquo;s in the Garden?</span><span class="card__time">2:34</span></span>
+        </a>
+      </li>
+
+      <li class="reel__item">
+        <a class="card" href="#" target="_blank" rel="noopener">
+          <picture>
+            <source type="image/webp" srcset="assets/img/fruits-680.webp 680w, assets/img/fruits-960.webp 960w" sizes="(max-width: 767px) 86vw, 32vw">
+            <img src="assets/img/fruits-960.jpg" srcset="assets/img/fruits-680.jpg 680w, assets/img/fruits-960.jpg 960w" sizes="(max-width: 767px) 86vw, 32vw" width="960" height="540" alt="Summer Fruits Song — cover" fetchpriority="high" decoding="async">
+          </picture>
+          <span class="card__meta"><span class="card__title">Summer Fruits Song</span><span class="card__time">2:18</span></span>
+        </a>
+      </li>
+
+      <li class="reel__item">
+        <a class="card" href="#" target="_blank" rel="noopener">
+          <picture>
+            <source type="image/webp" srcset="assets/img/colours-680.webp 680w, assets/img/colours-960.webp 960w" sizes="(max-width: 767px) 86vw, 32vw">
+            <img src="assets/img/colours-960.jpg" srcset="assets/img/colours-680.jpg 680w, assets/img/colours-960.jpg 960w" sizes="(max-width: 767px) 86vw, 32vw" width="960" height="540" alt="My First Colours Song — cover" loading="lazy" decoding="async">
+          </picture>
+          <span class="card__meta"><span class="card__title">My First Colours Song</span><span class="card__time">2:37</span></span>
+        </a>
+      </li>
+
+      <li class="reel__item">
+        <a class="card" href="#" target="_blank" rel="noopener">
+          <picture>
+            <source type="image/webp" srcset="assets/img/seasons-680.webp 680w, assets/img/seasons-960.webp 960w" sizes="(max-width: 767px) 86vw, 32vw">
+            <img src="assets/img/seasons-960.jpg" srcset="assets/img/seasons-680.jpg 680w, assets/img/seasons-960.jpg 960w" sizes="(max-width: 767px) 86vw, 32vw" width="960" height="540" alt="Four Seasons Song — cover" loading="lazy" decoding="async">
+          </picture>
+          <span class="card__meta"><span class="card__title">Four Seasons Song</span><span class="card__time">2:38</span></span>
+        </a>
+      </li>
+
+      <li class="reel__item">
+        <a class="card" href="#" target="_blank" rel="noopener">
+          <picture>
+            <source type="image/webp" srcset="assets/img/snack-680.webp 680w, assets/img/snack-960.webp 960w" sizes="(max-width: 767px) 86vw, 32vw">
+            <img src="assets/img/snack-960.jpg" srcset="assets/img/snack-680.jpg 680w, assets/img/snack-960.jpg 960w" sizes="(max-width: 767px) 86vw, 32vw" width="960" height="540" alt="Dog vs Cat and The Flying Snack — cover" loading="lazy" decoding="async">
+          </picture>
+          <span class="card__meta"><span class="card__title">Dog vs Cat and The Flying Snack</span><span class="card__time">0:55</span></span>
+        </a>
+      </li>
+
+    </ul>
+  </section>
+
+  <p class="micro">© 2026 <i>·</i> All rights reserved</p>
 </div>
-
-<div class="grid">
-
-  <a class="variant" href="v1-reel/index.html">
-    <img class="shot" src="assets/img/pick-v1.jpg" width="1440" height="900" alt="Вариант «Поток»: заголовок слева, лента обложек уходит за края экрана снизу" loading="eager">
-    <div class="body">
-      <span class="tag">вариант 1</span>
-      <span class="name">Поток</span>
-      <p class="desc">Текст прижат влево, лента обложек течёт через весь низ экрана и уходит за оба края. Сразу видно, что работ много и они не кончаются.</p>
-      <span class="open">Открыть
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </div>
-  </a>
-
-  <a class="variant" href="v2-frame/index.html">
-    <img class="shot" src="assets/img/pick-v2.jpg" width="1440" height="900" alt="Вариант «Рамка»: центрированный заголовок, закорючки по бокам, лента обложек дугой снизу" loading="eager">
-    <div class="body">
-      <span class="tag">вариант 2</span>
-      <span class="name">Рамка</span>
-      <p class="desc">Всё по центру, закорючки по бокам заголовка, лента дугой внизу, маскот выглядывает из-за кадра. Самая спокойная раскладка — прямое прочтение дизайн-системы.</p>
-      <span class="open">Открыть
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </div>
-  </a>
-
-  <a class="variant" href="v3-stage/index.html">
-    <img class="shot" src="assets/img/pick-v3.jpg" width="1440" height="900" alt="Вариант «Сцена»: галерея занимает верх экрана, текст и кнопка под ней" loading="eager">
-    <div class="body">
-      <span class="tag">вариант 3</span>
-      <span class="name">Сцена</span>
-      <p class="desc">Галерея занимает верх экрана целиком, текст и кнопка — под ней. Покупатель видит уровень до того, как прочтёт хоть слово.</p>
-      <span class="open">Открыть
-        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </div>
-  </a>
-
-</div>
-
-<footer>
-  <h2>Когда выберешь</h2>
-  <ol>
-    <li>Скажи агенту, какой вариант оставляем, — он поднимет его папку в корень.</li>
-    <li>Пришли номер WhatsApp и пять ссылок на ролики — это снимет обе заглушки.</li>
-    <li>Две другие папки и эта страница удаляются: они служебные.</li>
-  </ol>
-</footer>
-
+<script src="script.js"></script>
 </body>
 </html>

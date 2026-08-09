@@ -1,393 +1,98 @@
 {
-  "slug": "kids-animation-studio-site",
-  "title": "Сайт-визитка анимационной студии — три варианта на выбор",
+  "slug": "v1-hero-refinement",
+  "title": "Доработка выбранного варианта V1 «Reel»: маскот, новый заголовок, подвал, адаптив",
   "mode": "semi",
   "depth": "normal",
-  "tier": "T2",
+  "tier": "T0",
   "briefFile": "2026-08-09-brief.md",
   "memoryFile": "AGENTS.md",
-  "startedAt": "2026-08-09T13:05:00+0300",
-  "updatedAt": "2026-08-09T14:51:44+0300",
-  "finishedAt": "2026-08-09T14:51:03+0300",
+  "startedAt": "2026-08-09T15:12:00+0300",
+  "updatedAt": "2026-08-09T16:05:00+0300",
+  "finishedAt": null,
   "stages": [
     {
       "id": "preflight",
       "status": "done",
-      "startedAt": "2026-08-09T13:05:00+0300",
-      "finishedAt": "2026-08-09T13:26:38+0300"
+      "startedAt": "2026-08-09T15:12:00+0300",
+      "finishedAt": "2026-08-09T15:16:00+0300"
     },
     {
       "id": "manifest",
       "status": "done",
-      "startedAt": "2026-08-09T13:05:00+0300",
-      "finishedAt": "2026-08-09T13:26:38+0300",
-      "note": "47 требований"
+      "startedAt": "2026-08-09T15:16:00+0300",
+      "finishedAt": "2026-08-09T15:18:00+0300",
+      "note": "20 требований"
     },
     {
       "id": "briefing",
       "status": "done",
-      "startedAt": "2026-08-09T13:05:00+0300",
-      "finishedAt": "2026-08-09T13:26:38+0300",
-      "note": "2 вопроса: WhatsApp, YouTube"
+      "startedAt": "2026-08-09T15:18:00+0300",
+      "note": "2 вопроса: ИИ — только подвал; копирайт без имени",
+      "finishedAt": "2026-08-09T15:24:00+0300"
     },
     {
       "id": "spec",
       "status": "done",
-      "startedAt": "2026-08-09T13:05:00+0300",
-      "finishedAt": "2026-08-09T13:26:38+0300",
-      "note": "3 композиции"
+      "startedAt": "2026-08-09T15:24:00+0300",
+      "finishedAt": "2026-08-09T15:31:00+0300",
+      "note": "12 историй, 7 решений"
     },
     {
       "id": "plan",
-      "status": "done",
-      "startedAt": "2026-08-09T13:26:38+0300",
-      "note": "10 тасков, ярус T2",
-      "finishedAt": "2026-08-09T13:29:27+0300"
+      "status": "skipped",
+      "startedAt": "2026-08-09T15:31:00+0300",
+      "finishedAt": "2026-08-09T15:31:00+0300",
+      "note": "ярус T0 — одна страница, без разбивки на таски"
     },
     {
       "id": "build",
       "status": "done",
-      "startedAt": "2026-08-09T13:29:27+0300",
-      "note": "V1 и V2 готовы, V3 собирается",
-      "finishedAt": "2026-08-09T14:25:45+0300"
+      "startedAt": "2026-08-09T15:31:00+0300",
+      "finishedAt": "2026-08-09T16:05:00+0300",
+      "note": "одним проходом: ассет, корень, герой, тексты, адаптив"
     },
     {
       "id": "review",
-      "status": "done",
-      "startedAt": "2026-08-09T14:25:45+0300",
-      "note": "слепая приёмка против брифа",
-      "finishedAt": "2026-08-09T14:50:17+0300"
+      "status": "active",
+      "startedAt": "2026-08-09T16:05:00+0300",
+      "note": "ревизор: 26 ok, 0 fail"
     },
     {
       "id": "final",
-      "status": "done",
-      "startedAt": "2026-08-09T14:50:17+0300",
-      "note": "три варианта готовы к выбору",
-      "finishedAt": "2026-08-09T14:51:44+0300"
+      "status": "pending"
     }
   ],
   "requirements": {
-    "total": 47,
-    "done": 44,
+    "total": 20,
+    "done": 20,
     "inTicket": 0,
     "inSpec": 0,
-    "placeholder": 2,
-    "deferred": 1,
+    "placeholder": 0,
+    "deferred": 0,
     "dropped": 0
   },
-  "tickets": [
-    {
-      "id": "01",
-      "title": "Дизайн-токены, шрифты, базовый скелет варианта",
-      "requirements": [
-        "R02",
-        "R28",
-        "R35"
-      ],
-      "blockedBy": [],
-      "wave": 1,
-      "zone": [
-        "v1-reel/styles.css",
-        "assets/fonts/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T13:53:49+0300"
-    },
-    {
-      "id": "02",
-      "title": "Ассеты: пережатие обложек, маскот, og, favicon",
-      "requirements": [
-        "R25",
-        "R33",
-        "R38"
-      ],
-      "blockedBy": [],
-      "wave": 1,
-      "zone": [
-        "assets/img/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T13:29:27+0300"
-    },
-    {
-      "id": "03",
-      "title": "Галерея 16:9: разметка, драг, свайп, marquee, маски",
-      "requirements": [
-        "R20",
-        "R21",
-        "R22",
-        "R26",
-        "R27",
-        "R34"
-      ],
-      "blockedBy": [
-        "01",
-        "02"
-      ],
-      "wave": 2,
-      "zone": [
-        "v1-reel/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T13:53:49+0300"
-    },
-    {
-      "id": "04",
-      "title": "CTA в WhatsApp: гало, иконка, подпись, залипание",
-      "requirements": [
-        "R06",
-        "R13",
-        "R14",
-        "R15",
-        "R16",
-        "R17"
-      ],
-      "blockedBy": [
-        "01"
-      ],
-      "wave": 2,
-      "zone": [
-        "v1-reel/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T13:53:49+0300"
-    },
-    {
-      "id": "05",
-      "title": "Вариант V1 «Reel» — текст над горизонтальным потоком",
-      "requirements": [
-        "R01",
-        "R03",
-        "R04",
-        "R05",
-        "R18",
-        "R19",
-        "R23",
-        "R24"
-      ],
-      "blockedBy": [
-        "03",
-        "04"
-      ],
-      "wave": 3,
-      "zone": [
-        "v1-reel/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T13:53:49+0300"
-    },
-    {
-      "id": "06",
-      "title": "Вариант V2 «Frame» — центрированная классика",
-      "requirements": [
-        "R01",
-        "R03",
-        "R04"
-      ],
-      "blockedBy": [
-        "05"
-      ],
-      "wave": 4,
-      "zone": [
-        "v2-frame/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "startedAt": "2026-08-09T13:53:49+0300",
-      "finishedAt": "2026-08-09T14:12:33+0300"
-    },
-    {
-      "id": "07",
-      "title": "Вариант V3 «Stage» — работа впереди текста",
-      "requirements": [
-        "R01",
-        "R03",
-        "R04"
-      ],
-      "blockedBy": [
-        "05"
-      ],
-      "wave": 4,
-      "zone": [
-        "v3-stage/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "startedAt": "2026-08-09T13:53:49+0300",
-      "finishedAt": "2026-08-09T14:25:44+0300"
-    },
-    {
-      "id": "08",
-      "title": "Адаптив трёх вариантов: 3 брейкпоинта + ландшафт",
-      "requirements": [
-        "R07",
-        "R31"
-      ],
-      "blockedBy": [
-        "06",
-        "07"
-      ],
-      "wave": 5,
-      "zone": [
-        "v1-reel/",
-        "v2-frame/",
-        "v3-stage/"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T14:25:44+0300"
-    },
-    {
-      "id": "09",
-      "title": "Ревизия: запреты, a11y, вес, reduced-motion, кроссбраузер",
-      "requirements": [
-        "R36",
-        "R37",
-        "R39",
-        "R40",
-        "R44",
-        "R45"
-      ],
-      "blockedBy": [
-        "08"
-      ],
-      "wave": 6,
-      "zone": [
-        "*"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T14:25:45+0300"
-    },
-    {
-      "id": "10",
-      "title": "Страница выбора варианта",
-      "requirements": [
-        "R46i"
-      ],
-      "blockedBy": [
-        "08"
-      ],
-      "wave": 6,
-      "zone": [
-        "index.html"
-      ],
-      "status": "done",
-      "retries": 0,
-      "files": [],
-      "tests": {
-        "passed": 0,
-        "failed": 0
-      },
-      "commit": null,
-      "concerns": [],
-      "finishedAt": "2026-08-09T14:25:45+0300"
-    }
-  ],
-  "singlePass": null,
+  "tickets": [],
+  "singlePass": {
+    "status": "done",
+    "startedAt": "2026-08-09T15:31:00+0300",
+    "finishedAt": "2026-08-09T16:05:00+0300"
+  },
   "tests": {
-    "passed": 0,
+    "passed": 26,
     "failed": 0
   },
   "debt": {
     "placeholders": [
-      "R13 — ссылка на WhatsApp: WHATSAPP_URL пуст, кнопка на href=#",
-      "R21 — прямые ссылки на 5 роликов: карточки временно ведут на канал @KikiToony"
+      "R13 — ссылка на WhatsApp: WHATSAPP_URL пуст, кнопка на href=# (наследство прошлого прогона)",
+      "R21 — прямые ссылки на 5 роликов: карточки временно ведут на канал @KikiToony (наследство прошлого прогона)"
     ],
-    "assumptions": [
-      "URL канала собран из хэндла @KikiToony, подтверждённого скриншотом — не проверялся сетевым запросом"
-    ],
+    "assumptions": [],
     "emptyEnv": []
   },
   "additions": [
-    "Ревизор audit.py: считает копирайт, ищет чистые чёрный/белый, проверяет alt, контраст и вес — ради R36/R40/R44/R45",
-    "shot.sh: скриншоты через временную копию и фрейм — иначе Chrome отдаёт кеш и не умеет вьюпорт уже 500px"
+    "audit.py — ревизор статики: запреты, контраст, вес, копирайт, alt/размеры (26 проверок)",
+    "shot.sh и measure.sh — скриншоты и замеры вёрстки в headless Chrome, включая ширины < 500px через фрейм",
+    "Вырезка фона маскота через Vision (VNGenerateForegroundInstanceMaskRequest) — в проекте нет ImageMagick, а порог по яркости оставлял кайму"
   ],
-  "blind": {
-    "verdict": "можно отдавать на выбор",
-    "fixedAfter": [
-      "v3: 4px горизонтальной прокрутки на мобильном (маскот за правым краем)",
-      "v1: CTA не залипал в ландшафте телефона",
-      "v2 и v3: контраст микро-ряда 2.60:1 → 5.67:1",
-      "v2: закорючки ближе 40px к тексту",
-      "v3: H1 на телефоне 32.8px → 44px; v2: 41.6px → 44px",
-      "seasons.webp был тяжелее своего JPEG — перекодирован",
-      "og:image: добавлен TODO на абсолютный URL и заготовка og:url",
-      "служебный контракт сборки в <body> сокращён"
-    ],
-    "openItems": [
-      "WHATSAPP_URL и VIDEOS — заглушки, данных нет",
-      "og:image остаётся относительным до появления домена",
-      "V3: H1 на десктопе 51.8px против 72px ДС — цена того, что кнопка стоит в одной строке с заголовком",
-      "шрифты не сабсетнуты: Caveat 73 КБ ради четырёх слов"
-    ]
-  }
+  "blind": null
 }

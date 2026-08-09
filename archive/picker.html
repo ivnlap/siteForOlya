@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Архив: три варианта сайта — выбор сделан</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
+<style>
+@font-face{font-family:'General Sans';src:url('../assets/fonts/GeneralSans-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('../assets/fonts/GeneralSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'General Sans';src:url('../assets/fonts/GeneralSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+
+:root{
+  --cream-50:#FDFBF4; --cream-100:#F8F3E6; --cream-200:#EFE7D3; --cream-300:#E2D6BB;
+  --ink-900:#16130E; --ink-700:#3B342B; --ink-500:#6E6355;
+  --acc-coral:#F0655A; --acc-sun:#F5B93E;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;padding:clamp(28px,5vw,72px) clamp(20px,5vw,64px) 64px;
+  background:var(--cream-50);color:var(--ink-700);
+  font:400 17px/1.6 'General Sans',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+h1{
+  margin:0 0 14px;font-weight:600;font-size:clamp(2rem,3.6vw,3rem);
+  line-height:1.06;letter-spacing:-.03em;color:var(--ink-900);
+}
+.sub{margin:0 0 8px;max-width:70ch;color:var(--ink-700)}
+.note{
+  margin:24px 0 44px;max-width:70ch;padding:18px 22px;
+  background:var(--cream-100);border:1px solid var(--cream-200);border-radius:18px;
+  font-size:15px;line-height:1.55;color:var(--ink-700);
+}
+.note b{color:var(--ink-900)}
+code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;
+  background:var(--cream-200);padding:1px 6px;border-radius:6px;
+}
+
+.grid{display:grid;gap:clamp(20px,2.4vw,32px);grid-template-columns:repeat(auto-fit,minmax(320px,1fr));max-width:1400px}
+
+.variant{
+  display:flex;flex-direction:column;
+  background:var(--cream-100);border:1px solid var(--cream-200);
+  border-radius:24px;overflow:hidden;
+  text-decoration:none;color:inherit;
+  transition:transform 320ms var(--ease),box-shadow 320ms var(--ease),border-color 320ms var(--ease);
+}
+.variant:hover,.variant:focus-visible{
+  transform:translateY(-4px);
+  box-shadow:0 18px 48px rgba(22,19,14,.12);
+  border-color:var(--cream-300);
+}
+.variant:focus-visible{outline:2.5px solid var(--ink-900);outline-offset:4px}
+.shot{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top center;background:var(--cream-200);border-bottom:1px solid var(--cream-200)}
+.body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tag{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-500)}
+.name{font-weight:600;font-size:23px;line-height:1.2;letter-spacing:-.02em;color:var(--ink-900)}
+.desc{font-size:15px;line-height:1.55;color:var(--ink-700);margin:0}
+.open{
+  margin-top:auto;padding-top:14px;
+  font-weight:500;font-size:15px;color:var(--acc-coral);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.open svg{width:15px;height:15px}
+
+footer{margin-top:56px;max-width:70ch;font-size:15px;line-height:1.6;color:var(--ink-500)}
+footer h2{font-size:17px;font-weight:600;color:var(--ink-900);margin:0 0 10px}
+footer ol{margin:0;padding-left:20px}
+footer li{margin-bottom:6px}
+
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<h1>Архив: три варианта сайта</h1>
+<p class="sub"><b>Выбор сделан 09.08.2026 — вариант 1 «Поток».</b> Он поднят в корень репозитория и дорабатывается там. Эта страница и две другие композиции лежат здесь как история, в продакшен не идут.</p>
+<p class="sub">Один и тот же контент, одни и те же обложки, одна и та же кнопка. Отличается только композиция — то, в каком порядке человек встречает работу, заголовок и кнопку.</p>
+
+<div class="note">
+  <b>Две заглушки, которые надо заменить перед публикацией.</b> Обе — в самом верху <code>script.js</code> выбранного варианта:
+  <code>WHATSAPP_URL</code> (пока пусто, кнопка никуда не ведёт) и массив <code>VIDEOS</code>
+  (все пять карточек пока ведут на канал, а не на конкретные ролики).
+</div>
+
+<div class="grid">
+
+  <a class="variant" href="../index.html">
+    <img class="shot" src="../assets/img/pick-v1.jpg" width="1440" height="900" alt="Вариант «Поток»: заголовок слева, лента обложек уходит за края экрана снизу" loading="eager">
+    <div class="body">
+      <span class="tag">вариант 1</span>
+      <span class="name">Поток</span>
+      <p class="desc">Текст прижат влево, лента обложек течёт через весь низ экрана и уходит за оба края. Сразу видно, что работ много и они не кончаются.</p>
+      <span class="open">Открыть
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a class="variant" href="v2-frame/index.html">
+    <img class="shot" src="../assets/img/pick-v2.jpg" width="1440" height="900" alt="Вариант «Рамка»: центрированный заголовок, закорючки по бокам, лента обложек дугой снизу" loading="eager">
+    <div class="body">
+      <span class="tag">вариант 2</span>
+      <span class="name">Рамка</span>
+      <p class="desc">Всё по центру, закорючки по бокам заголовка, лента дугой внизу, маскот выглядывает из-за кадра. Самая спокойная раскладка — прямое прочтение дизайн-системы.</p>
+      <span class="open">Открыть
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a class="variant" href="v3-stage/index.html">
+    <img class="shot" src="../assets/img/pick-v3.jpg" width="1440" height="900" alt="Вариант «Сцена»: галерея занимает верх экрана, текст и кнопка под ней" loading="eager">
+    <div class="body">
+      <span class="tag">вариант 3</span>
+      <span class="name">Сцена</span>
+      <p class="desc">Галерея занимает верх экрана целиком, текст и кнопка — под ней. Покупатель видит уровень до того, как прочтёт хоть слово.</p>
+      <span class="open">Открыть
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <h2>Что дальше</h2>
+  <ol>
+    <li>Вариант 1 выбран и поднят в корень — открывается как <code>index.html</code> репозитория.</li>
+    <li>Осталось прислать номер WhatsApp и пять ссылок на ролики: это снимет обе заглушки.</li>
+    <li>Эта папка — архив. Удалять её не обязательно, но и трогать незачем.</li>
+  </ol>
+</footer>
+
+</body>
+</html>
