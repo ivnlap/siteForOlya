@@ -180,6 +180,10 @@ a{color:inherit}
 .mascot{
   grid-area:mascot;
   position:relative;
+  /* Он лежит поверх верхней кромки обложек. Без этого его прямоугольник
+     перехватывал бы и клик по карточке, и драг ленты — персонаж декоративен,
+     нажимать в нём нечего. */
+  pointer-events:none;
   align-self:end;
   justify-self:center;
   width:100%;
