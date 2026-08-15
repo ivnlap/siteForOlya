@@ -4,3 +4,13 @@
 node_modules/
 __pycache__/
 .DS_Store
+
+# Рабочая кухня — остаётся на диске, но не уезжает на GitHub
+material/
+references/
+autor/
+archive/
+.agents/
+.autopilot/
+.impeccable/
+.claude/

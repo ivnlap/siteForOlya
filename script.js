@@ -6,22 +6,23 @@
   'use strict';
 
   /* ---------------------------------------------------------------------------
-     TODO — ЗАМЕНИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ. Это два единственных места с заглушками.
+     Обе цели заданы владельцем 09.08.2026 и заглушками больше не являются.
 
-     1) WHATSAPP_URL — номер в международном формате, без «+» и пробелов.
-        Пример: 'https://wa.me/79991234567?text=' + encodeURIComponent(GREETING)
-     2) VIDEOS — прямые ссылки на пять роликов. Сейчас все пять ведут на канал,
-        потому что прямых ссылок на ролики ещё нет.
+     1) WHATSAPP_URL — рабочий номер +7 950 957 24 90. В wa.me номер идёт без
+        плюса, пробелов и дефисов, иначе ссылка не открывает диалог.
+     2) VIDEOS — все пять карточек ведут на канал целиком, а не на отдельные
+        ролики: так решил владелец. Не «ещё не проставлено» — не заменять на
+        прямые ссылки без его слова.
      --------------------------------------------------------------------------- */
   var GREETING = "Hi! I'd like to discuss an animated video for our brand.";
-  var WHATSAPP_URL = '';                                   // ← TODO: вписать сюда
-  var CHANNEL_URL = 'https://www.youtube.com/@KikiToony';   // временная цель карточек
+  var WHATSAPP_URL = 'https://wa.me/79509572490';
+  var CHANNEL_URL = 'https://www.youtube.com/@KikiToony';
   var VIDEOS = [
-    CHANNEL_URL, // TODO: Who's in the Garden?
-    CHANNEL_URL, // TODO: Summer Fruits Song
-    CHANNEL_URL, // TODO: My First Colours Song
-    CHANNEL_URL, // TODO: Four Seasons Song
-    CHANNEL_URL  // TODO: Dog vs Cat and The Flying Snack
+    CHANNEL_URL, // Who's in the Garden?
+    CHANNEL_URL, // Summer Fruits Song
+    CHANNEL_URL, // My First Colours Song
+    CHANNEL_URL, // Four Seasons Song
+    CHANNEL_URL  // Dog vs Cat and The Flying Snack
   ];
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -125,21 +126,34 @@
   });
 
   /* ---- 2c. mouse drag ---------------------------------------------------- */
-  var dragging = false, startX = 0, startScroll = 0, moved = 0;
+  var DRAG_SLOP = 6;   // порог: ниже него это клик, а не перетаскивание
+  var dragging = false, captured = false, startX = 0, startScroll = 0, moved = 0;
 
   reel.addEventListener('pointerdown', function (e) {
     if (e.pointerType === 'touch') return;   // native touch scrolling is better
-    dragging = true; moved = 0;
+    dragging = true; moved = 0; captured = false;
     startX = e.clientX;
     startScroll = reel.scrollLeft;
     reel.classList.add('is-dragging');
-    reel.setPointerCapture(e.pointerId);
+    /* Указатель здесь НЕ захватывается намеренно. setPointerCapture уводит на
+       элемент захвата не только pointermove/pointerup, но и совместимый click:
+       он приходил на .reel, ссылка внутри карточки его не получала, и обложки
+       переставали открываться вовсе. Захват берётся ниже — когда палец реально
+       поехал. Проверено настоящим вводом мыши, а не dispatchEvent: тот бьёт по
+       элементу напрямую и мимо этого перенаправления проходит. */
   });
 
   reel.addEventListener('pointermove', function (e) {
     if (!dragging) return;
     var dx = e.clientX - startX;
     moved = Math.max(moved, Math.abs(dx));
+    /* с этого момента это перетаскивание: захват нужен, чтобы лента не бросала
+       палец, ушедший за её пределы. Клик после такого движения всё равно
+       гасится ниже — открывать карточку он уже не должен. */
+    if (!captured && moved > DRAG_SLOP) {
+      captured = true;
+      try { reel.setPointerCapture(e.pointerId); } catch (err) { /* не критично */ }
+    }
     reel.scrollLeft = startScroll - dx;
     wrap();
   });
@@ -148,14 +162,23 @@
     if (!dragging) return;
     dragging = false;
     reel.classList.remove('is-dragging');
-    try { reel.releasePointerCapture(e.pointerId); } catch (err) { /* already gone */ }
+    if (captured) {
+      try { reel.releasePointerCapture(e.pointerId); } catch (err) { /* already gone */ }
+    }
+    captured = false;
   }
   reel.addEventListener('pointerup', endDrag);
   reel.addEventListener('pointercancel', endDrag);
 
+  /* Обложка — картинка внутри ссылки, и браузер по умолчанию таскает такие
+     родным drag-and-drop: указатель отменяется, лента стоит на месте, а click
+     не рождается вообще. Раньше это побочно глушил захват указателя на
+     pointerdown — теперь глушим явно, чтобы жест не зависел от момента захвата. */
+  reel.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
   /* a drag that ends over a card must not open it */
   reel.addEventListener('click', function (e) {
-    if (moved > 6) { e.preventDefault(); e.stopPropagation(); }
+    if (moved > DRAG_SLOP) { e.preventDefault(); e.stopPropagation(); }
     moved = 0;
   }, true);
 
